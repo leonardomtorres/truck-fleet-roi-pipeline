@@ -1,0 +1,4 @@
+veiculo_id,placa,modelo,ano_fabricacao,data_aquisicao,valor_veiculo
+1,FIC-1A23,Caminhao 0km c/ implemento,2024,2024-01-05,465000.0
+2,FIC-2B45,Caminhao 0km c/ implemento,2024,2024-01-05,480000.0
+3,FIC-3C67,Caminhao 0km c/ implemento,2024,2024-01-05,470000.0

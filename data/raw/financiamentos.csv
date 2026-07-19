@@ -1,0 +1,4 @@
+veiculo_id,valor_veiculo,valor_entrada,valor_financiado,prazo_meses,taxa_juros_anual,data_inicio
+1,465000.0,93000.0,372000.0,60,0.1336,2024-01-05
+2,480000.0,96000.0,384000.0,60,0.1336,2024-01-05
+3,470000.0,94000.0,376000.0,60,0.1336,2024-01-05

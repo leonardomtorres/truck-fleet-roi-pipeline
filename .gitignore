@@ -1,0 +1,6 @@
+bronze.db
+silver.db
+gold.db
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
