@@ -2,6 +2,8 @@
 
 Um caminhão pode ter uma operação saudável (frete cobrindo bem combustível, motorista, manutenção) e mesmo assim não se pagar, se a taxa de juros do financiamento for alta demais. Foi essa pergunta, não uma tecnologia específica, que deu origem a este projeto.
 
+![Dashboard: visão geral com KPIs, DSCR e curva de payback](docs/dashboard-visao-geral.png)
+
 ## O problema
 
 Depois de alguns anos acompanhando custo operacional e financeiro de frota, uma coisa ficou clara: é muito fácil avaliar um caminhão só pelo resultado da operação (frete menos combustível, pneu, seguro, motorista, ajudante, manutenção) e esquecer que a parcela do financiamento também sai do caixa todo mês. E essa parcela depende de uma variável que ninguém na operação controla: a taxa de juros contratada.
@@ -39,8 +41,16 @@ O DSCR (resultado operacional dividido pela parcela) é o mesmo índice que banc
 
 ## Arquitetura
 
-```
-data/raw/*.csv -> bronze.py -> bronze.db -> silver.py -> silver.db -> gold.py -> gold.db -> notebook / dashboard
+```mermaid
+flowchart LR
+    A["data/raw/*.csv"] --> B["bronze.py"]
+    B --> C[("bronze.db")]
+    C --> D["silver.py"]
+    D --> E[("silver.db")]
+    E --> F["gold.py"]
+    F --> G[("gold.db")]
+    G --> H["notebook"]
+    G --> I["dashboard Streamlit"]
 ```
 
 - `src/generate_data.py`: gera os CSVs sintéticos.
@@ -76,6 +86,7 @@ A simulação de sensibilidade mostra por que isso importa: poucos pontos percen
 
 ```
 fleet-financing-roi/
+├── docs/dashboard-visao-geral.png
 ├── data/raw/               # CSVs sintéticos
 ├── src/generate_data.py
 ├── src/bronze.py
