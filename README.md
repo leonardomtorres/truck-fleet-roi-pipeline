@@ -42,7 +42,7 @@ O DSCR (resultado operacional dividido pela parcela) é o mesmo índice que banc
 ## Arquitetura
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["data/raw/*.csv"] --> B["bronze.py"]
     B --> C[("bronze.db")]
     C --> D["silver.py"]
@@ -51,6 +51,10 @@ flowchart LR
     F --> G[("gold.db")]
     G --> H["notebook"]
     G --> I["dashboard Streamlit"]
+
+    style C fill:#cd7f32,color:#fff,stroke:#8a5522
+    style E fill:#9e9e9e,color:#fff,stroke:#6b6b6b
+    style G fill:#d4af37,color:#fff,stroke:#a3841f
 ```
 
 - `src/generate_data.py`: gera os CSVs sintéticos.
