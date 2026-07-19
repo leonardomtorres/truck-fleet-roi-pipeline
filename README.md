@@ -10,11 +10,14 @@ Depois de alguns anos acompanhando custo operacional e financeiro de frota, uma 
 
 Frota nova de transporte de carga quase sempre é financiada, não comprada à vista. Um caminhão 0km completo (cavalo + implemento) gira em torno de R$ 470 mil hoje, financiado em 60 meses. Com juros de veículo pesado na faixa de 13% a.a., a parcela mensal fica pesada o suficiente pra decidir sozinha se o investimento vale a pena, independente de o caminhão "rodar bem".
 
-Este projeto simula essa realidade pra responder três perguntas concretas:
+Este projeto simula essa realidade pra responder quatro perguntas concretas, na ordem em que elas realmente aparecem numa decisão de expandir frota:
 
 1. Qual é o resultado *real* de cada caminhão, descontando a parcela do financiamento, não só o resultado operacional?
 2. Em quantos meses ele se paga?
 3. O que muda nesse cálculo se a taxa de juros fosse outra?
+4. Dado o que sobra hoje, dá pra alavancar e financiar mais um caminhão com segurança, ou a operação já está no limite?
+
+A quarta pergunta é o motivo real do projeto existir: não é só calcular ROI de um caminhão isolado, é dar suporte pra decisão de tomar mais crédito. O pipeline inteiro (e principalmente o DSCR e o simulador de crescimento de frota, mais abaixo) foi construído pra responder isso com número, não com achismo.
 
 ## Como pensei a solução
 
@@ -85,6 +88,8 @@ streamlit run src/app_streamlit.py           # dashboard interativo
 Com os caminhões a R$ 470 mil e 13,36% a.a., o resultado operacional médio fica em torno de R$ 8-9 mil por mês. Parece saudável. Mas a parcela do financiamento (R$ 8,4 a 8,7 mil/mês) consome quase tudo isso: o resultado líquido médio fica entre -R$ 641 e +R$ 605 por mês, e nenhum dos 3 caminhões recupera o valor da entrada em 24 meses.
 
 A simulação de sensibilidade mostra por que isso importa: poucos pontos percentuais de diferença na taxa mudam o payback de "alguns anos" pra "nunca dentro do prazo do financiamento". Um caminhão bem administrado na operação pode simplesmente não se pagar, dependendo só de quanto custou o dinheiro emprestado pra comprá-lo. É justamente esse o tipo de conta que costuma ficar de fora quando a decisão de expandir frota olha apenas pro resultado operacional.
+
+E é essa a resposta pra pergunta de alavancagem: com DSCR entre 0,93 e 1,07, os 3 caminhões simulados não têm folga pra sustentar um quarto financiamento agora. A decisão de tomar mais crédito só fica segura quando o DSCR passa de 1,3, quando a taxa negociada cai, ou quando o resultado operacional melhora o suficiente pra abrir essa margem. É exatamente esse cálculo que o simulador de crescimento de frota formaliza mês a mês, em vez de depender de intuição.
 
 ## Estrutura de pastas
 
